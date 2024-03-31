@@ -16,7 +16,6 @@ parser = argparse.ArgumentParser(description='Process some strings.')
 # 添加参数
 parser.add_argument('--Epoch', type=int, help='a string to process')
 parser.add_argument('--dataset_path', type=str, help='a string to process')
-parser.add_argument('--model_path', type=str, help='a string to process')
 
 args = parser.parse_args()
 
