@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from models.siamese import Siamese
-from utils.c import ImageDataset
+from c import ImageDataset
 import argparse
 
 # 创建解析器
