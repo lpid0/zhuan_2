@@ -8,9 +8,32 @@ from tqdm import tqdm
 
 from models.siamese import Siamese
 from utils.c import ImageDataset
+import argparse
 
-batch_size = 36
-train_dataset = ImageDataset(filepath='./save')
+# 创建解析器
+parser = argparse.ArgumentParser(description='Process some strings.')
+
+# 添加参数
+parser.add_argument('--Epoch', type=int, help='a string to process')
+parser.add_argument('--dataset_path', type=str, help='a string to process')
+parser.add_argument('--model_path', type=str, help='a string to process')
+
+args = parser.parse_args()
+
+if args.Epoch:
+    Epoch = args.Epoch
+else:
+    Epoch = 100
+if args.dataset_path:
+    dataset_path = args.dataset_path
+else:
+    dataset_path = "/gemini/data-1"
+
+
+
+
+batch_size = 32
+train_dataset = ImageDataset(filepath=dataset_path)
 train_loader = DataLoader(train_dataset, batch_size=batch_size)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -21,7 +44,7 @@ model = model.to(device)
 criterion = nn.BCELoss()
 optimizer = SGD(model.parameters(), lr=1e-3, momentum=0.9)
 
-num_epochs = 300
+num_epochs = Epoch
 best_accuracy = 0.0
 epochs_no_improve = 0
 early_stop = 30
