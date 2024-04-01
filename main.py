@@ -16,7 +16,7 @@ parser = argparse.ArgumentParser(description='Process some strings.')
 # 添加参数
 parser.add_argument('--Epoch', type=int, help='a string to process')
 parser.add_argument('--dataset_path', type=str, help='a string to process')
-
+parser.add_argument('--model_path', type=str, help='a string to process')
 args = parser.parse_args()
 
 if args.Epoch:
@@ -38,6 +38,8 @@ train_loader = DataLoader(train_dataset, batch_size=batch_size)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model = Siamese()
+if args.model_path:
+    model.load_state_dict(torch.load(args.model_path))
 model = model.to(device)
 
 criterion = nn.BCELoss()
