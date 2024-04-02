@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser(description='Process some strings.')
 parser.add_argument('--Epoch', type=int, help='a string to process')
 parser.add_argument('--dataset_path', type=str, help='a string to process')
 parser.add_argument('--model_path', type=str, help='a string to process')
+parser.add_argument('--early_stop', type=str, help='a string to process')
 args = parser.parse_args()
 
 if args.Epoch:
@@ -27,6 +28,10 @@ if args.dataset_path:
     dataset_path = args.dataset_path
 else:
     dataset_path = "/gemini/data-1"
+if args.early_stop:
+    early_stop = args.early_stop
+else:
+    early_stop = 15
 
 
 
@@ -48,7 +53,7 @@ optimizer = SGD(model.parameters(), lr=1e-3, momentum=0.9)
 num_epochs = Epoch
 best_accuracy = 0.0
 epochs_no_improve = 0
-early_stop = 30
+early_stop = early_stop
 
 for epoch in range(num_epochs):
     model.train()
